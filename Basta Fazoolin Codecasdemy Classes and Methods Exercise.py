@@ -1,3 +1,5 @@
+
+
 # Creating a new class to accomodate the new business the company is expanding into.
 class Business:
   def __init__(self, name, franchises):
