@@ -1,0 +1,3 @@
+# No third-party packages detected in `.venv`.
+# If you add external packages, list them here one-per-line, for example:
+# requests==2.31.0
