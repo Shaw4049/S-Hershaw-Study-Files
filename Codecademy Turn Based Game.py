@@ -13,9 +13,6 @@ class Player:
         return f"A Class Object to represent the player: {self.name}, Health: {self.health}, Attack Power: {self.attack_power}, Defense: {self.defense}."
     
     def input_details(self):
-        health_add = 0
-        attack_add = 0
-        defense_add = 0
         player_name = ""
         player_name = input("Welcome fighter, what is your name? ")
         print("Welcome to the game {player}!".format(player=player_name))
@@ -61,31 +58,40 @@ class Player:
             elif attack_add > self.stat_points:
                 print("You do not have enough points to allocate that many to your attack rating.")
                 continue
-            elif attack_add == 0 or attack_add >0:
-                self.attack_power += attack_add
-                self.stat_points -= attack_add
-                print("Your attack rating is now is now {attack}, you have {points} remaining. ".format(attack=self.attack_power, points=self.stat_points))
+            # Valid value: apply and exit loop
+            self.attack_power += attack_add
+            self.stat_points -= attack_add
+            print("Your attack rating is now is now {attack}, you have {points} remaining. ".format(attack=self.attack_power, points=self.stat_points))
+            break
         return
     # User input to allocate additional points to defense.
     def input_defense_stats(self):
         defense_add = 0
-        while defense_add == 0 :
-            defense_add = int(input("How many points would you like to add to your defense rating? "))
+        while True:
+            # Prompt and validate integer input.
+            try:
+                defense_add = int(input("How many points would you like to add to your defense rating? "))
+            except ValueError:
+                print('Please enter a valid number.')
+                continue    
             if defense_add < 0:
                 print('Your number cannot be negative.')
                 continue
             elif defense_add > self.stat_points:
                 print("You do not have enough points to allocate that many to your attack rating.")
                 continue
-            elif defense_add == 0 or defense_add >0:
-                self.defense += defense_add
-                self.stat_points -= defense_add
-                print("Your defense rating is now is now {defense}, you have {points} remaining. ".format(defense=self.attack_power, points=self.stat_points))
+            # Valid value: apply and exit loop
+            self.defense += defense_add
+            self.stat_points -= defense_add
+            print("Your defense rating is now is now {defense}, you have {points} remaining. ".format(defense=self.attack_power, points=self.stat_points))
+            break
         return
+    
     def list_stats(self):
         print("Player Name: {name}. You have entered the following stats: \nHealth: {health}\nAttack Power: {attack}\nDefense: {defense}\n".format(name=self.name, health=self.health, attack=self.attack_power, defense=self.defense))
         return
 
+# Create a player object and run through the stat allocation process.
 player_one = Player("Player One")
 player_one.input_details()
 player_one.input_health_stats()
