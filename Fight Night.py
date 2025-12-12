@@ -48,15 +48,16 @@ class Player:
         while True:
             # Prompt and validate integer input.
             try:
-                attack_add = int(input("How many points would you like to add to your attack power? From the {points} points available. ".format(points=self.stat_points)"))
+                attack_add = int(input("How many points would you like to add to your attack power? From the {points} points available. ".format(points=self.stat_points)))
             except ValueError:
+            
                 print('Please enter a valid number.')
                 continue
             if attack_add < 0:
                 print('Your number cannot be negative.')
                 continue
             elif attack_add > self.stat_points:
-                print("You do not have enough points to allocate that many to your attack rating.You only have {points} remaining. ".format(points=self.stat_points)")
+                print("You do not have enough points to allocate that many to your attack rating.You only have {points} remaining. ".format(points=self.stat_points))
                 continue
             # Valid value: apply and exit loop
             self.attack_power += attack_add
@@ -70,7 +71,7 @@ class Player:
         while True:
             # Prompt and validate integer input.
             try:
-                defense_add = int(input("How many points would you like to add to your defense rating? From the {points} points available. ".format(points=self.stat_points)"))
+                defense_add = int(input("How many points would you like to add to your defense rating? From the {points} points available. ".format(points=self.stat_points)))
             except ValueError:
                 print('Please enter a valid number.')
                 continue    
@@ -78,7 +79,7 @@ class Player:
                 print('Your number cannot be negative.')
                 continue
             elif defense_add > self.stat_points:
-                print("You do not have enough points to allocate that many to your attack rating. You only have {points} remaining. ".format(points=self.stat_points)")
+                print("You do not have enough points to allocate that many to your attack rating. You only have {points} remaining. ".format(points=self.stat_points))
                 continue
             # Valid value: apply and exit loop
             self.defense += defense_add
