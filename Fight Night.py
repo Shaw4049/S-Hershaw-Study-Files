@@ -1,13 +1,8 @@
 # Creating a turn based game for my Codecademy portfolio project
 import random
-# Fight Night
-print("Welcome to Fight Night! Get ready to rumble!")
-# Determine who goes first with a random number generator.
-first_move = random.randint(1,2)
-# print(first_move) testing line
 
 class Player:
-    def __init__(self, input_name, health=100, attack_power=10, defense=10, stat_points= 30):
+    def __init__(self, input_name, health=100, attack_power=25, defense=10, stat_points= 30):
         self.name = input_name
         self.health = health
         self.attack_power = attack_power
@@ -99,6 +94,55 @@ class Player:
         print("Player Name: {name}. You have entered the following stats: \nHealth: {health}\nAttack Power: {attack}\nDefense: {defense}\n".format(name=self.name, health=self.health, attack=self.attack_power, defense=self.defense))
         return
 
+
+# Creating a Fight class to manage and automate the fight between two players.
+class Fight:
+    def __init__(self, player_one, player_two):
+        self.player_one = player_one
+        self.player_two = player_two
+    
+    def __repr__(self):
+        return f"A Class Object to represent the fight between {self.player_one.name} and {self.player_two.name}."
+    
+    def battle(self):
+        print("Let the fight begin!")
+        round = 1
+        while self.player_one.health > 0 and self.player_two.health > 0:
+            print("Round {round}!".format(round=round))
+            if first_move == 1:
+                damage = self.player_one.attack_power - self.player_two.defense
+                self.player_two.health -= damage
+                print("{attacker} attacks {defender} for {damage} damage! {defender} has {health} health remaining.".format(attacker=self.player_one.name, defender=self.player_two.name, damage=damage, health=self.player_two.health))
+                if self.player_two.health <= 0:
+                    print("{defender} has been defeated! {attacker} wins!".format(defender=self.player_two.name, attacker=self.player_one.name))
+                    break
+                damage = self.player_two.attack_power - self.player_one.defense
+                self.player_one.health -= damage
+                print("{attacker} attacks {defender} for {damage} damage! {defender} has {health} health remaining.".format(attacker=self.player_two.name, defender=self.player_one.name, damage=damage, health=self.player_one.health))
+                if self.player_one.health <= 0:
+                    print("{defender} has been defeated! {attacker} wins!".format(defender=self.player_one.name, attacker=self.player_two.name))
+                    break
+            else:
+                damage = self.player_two.attack_power - self.player_one.defense
+                self.player_one.health -= damage
+                print("{attacker} attacks {defender} for {damage} damage! {defender} has {health} health remaining.".format(attacker=self.player_two.name, defender=self.player_one.name, damage=damage, health=self.player_one.health))
+                if self.player_one.health <= 0:
+                    print("{defender} has been defeated! {attacker} wins!".format(defender=self.player_one.name, attacker=self.player_two.name))
+                    break
+                damage = self.player_one.attack_power - self.player_two.defense
+                self.player_two.health -= damage
+                print("{attacker} attacks {defender} for {damage} damage! {defender} has {health} health remaining.".format(attacker=self.player_one.name, defender=self.player_two.name, damage=damage, health=self.player_two.health))
+                if self.player_two.health <= 0:
+                    print("{defender} has been defeated! {attacker} wins!".format(defender=self.player_two.name, attacker=self.player_one.name))
+                    break
+            round += 1
+        return
+    
+# Fight Night
+print("Welcome to Fight Night! Get ready to rumble!")
+# Determine who goes first with a random number generator.
+first_move = random.randint(1,2)
+
 # Create a player object and run through the stat allocation process.
 player_one = Player("Player One")
 player_one.input_details()
@@ -115,11 +159,6 @@ player_two.input_attack_stats()
 player_two.input_defense_stats()
 player_two.list_stats()
 
-# Creating a Fight class to manage the fight between two players.
-class Fight:
-    def __init__(self, player_one, player_two):
-        self.player_one = player_one
-        self.player_two = player_two
-    
-    def __repr__(self):
-        return f"A Class Object to represent the fight between {self.player_one.name} and {self.player_two.name}."
+# Create a Fight object and start the battle.
+fight_night = Fight(player_one, player_two) 
+fight_night.battle()
