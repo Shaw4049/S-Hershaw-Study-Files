@@ -1,5 +1,10 @@
 # Creating a turn based game for my Codecademy portfolio project
+import random
 # Fight Night
+print("Welcome to Fight Night! Get ready to rumble!")
+# Determine who goes first with a random number generator.
+first_move = random.randint(1,2)
+# print(first_move) testing line
 
 class Player:
     def __init__(self, input_name, health=100, attack_power=10, defense=10, stat_points= 30):
@@ -12,12 +17,14 @@ class Player:
     def __repr__(self):
         return f"A Class Object to represent the player: {self.name}, Health: {self.health}, Attack Power: {self.attack_power}, Defense: {self.defense}."
     
+    # User input to get player name and display starting stats.
     def input_details(self):
         player_name = ""
         player_name = input("Welcome fighter, what is your name? ")
         print("Welcome to the game {player}!".format(player=player_name))
         print("Your starting health is {health}, your attack power is {attack} and your defense rating is {defense}.".format(health=self.health, attack=self.attack_power, defense = self.defense))
         print("You have an additional {points} points to spend on your three stats." .format(points=self.stat_points))
+        self.name = player_name
     # User input to allocate additional points to health.
     def input_health_stats(self):
         health_add = 0
@@ -99,3 +106,20 @@ player_one.input_health_stats()
 player_one.input_attack_stats()
 player_one.input_defense_stats()
 player_one.list_stats()
+
+# Create a second player object and run through the stat allocation process.
+player_two = Player("Player Two")
+player_two.input_details()
+player_two.input_health_stats()
+player_two.input_attack_stats()
+player_two.input_defense_stats()
+player_two.list_stats()
+
+# Creating a Fight class to manage the fight between two players.
+class Fight:
+    def __init__(self, player_one, player_two):
+        self.player_one = player_one
+        self.player_two = player_two
+    
+    def __repr__(self):
+        return f"A Class Object to represent the fight between {self.player_one.name} and {self.player_two.name}."
