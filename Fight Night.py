@@ -15,7 +15,7 @@ class Player:
     # User input to get player name and display starting stats.
     def input_details(self):
         player_name = ""
-        player_name = input("Welcome fighter, what is your name? ")
+        player_name = input("Welcome {player_number}, what is your name? ".format(player_number=self.name))
         print("Welcome to the game {player}!".format(player=player_name))
         print("Your starting health is {health}, your attack power is {attack} and your defense rating is {defense}.".format(health=self.health, attack=self.attack_power, defense = self.defense))
         print("You have an additional {points} points to spend on your three stats." .format(points=self.stat_points))
@@ -32,7 +32,7 @@ class Player:
                 continue
 
             if health_add < 0:
-                print('Your number cannot be negative. Pease enter a whole vaid nmber.')
+                print('Your number cannot be negative. Pease enter a whole valid number.')
                 continue
             if health_add > self.stat_points:
                 print("You do not have enough points to allocate that many to health. You only have {points} remaining. ".format(points=self.stat_points))
@@ -56,7 +56,7 @@ class Player:
                 print('Please enter a valid number.')
                 continue
             if attack_add < 0:
-                print('Your number cannot be negative.')
+                print('Your number cannot be negative. Please enter a whole valid number.')
                 continue
             elif attack_add > self.stat_points:
                 print("You do not have enough points to allocate that many to your attack rating.You only have {points} remaining. ".format(points=self.stat_points))
@@ -78,7 +78,7 @@ class Player:
                 print('Please enter a valid number.')
                 continue    
             if defense_add < 0:
-                print('Your number cannot be negative.')
+                print('Your number cannot be negative. Please enter a whole valid number.')
                 continue
             elif defense_add > self.stat_points:
                 print("You do not have enough points to allocate that many to your attack rating. You only have {points} remaining. ".format(points=self.stat_points))
@@ -112,12 +112,16 @@ class Fight:
             if first_move == 1:
                 damage = self.player_one.attack_power - self.player_two.defense
                 self.player_two.health -= damage
+                if damage < 0:
+                    damage = 0
                 print("{attacker} attacks {defender} for {damage} damage! {defender} has {health} health remaining.".format(attacker=self.player_one.name, defender=self.player_two.name, damage=damage, health=self.player_two.health))
                 if self.player_two.health <= 0:
                     print("{defender} has been defeated! {attacker} wins!".format(defender=self.player_two.name, attacker=self.player_one.name))
                     break
                 damage = self.player_two.attack_power - self.player_one.defense
                 self.player_one.health -= damage
+                if damage < 0:
+                    damage = 0
                 print("{attacker} attacks {defender} for {damage} damage! {defender} has {health} health remaining.".format(attacker=self.player_two.name, defender=self.player_one.name, damage=damage, health=self.player_one.health))
                 if self.player_one.health <= 0:
                     print("{defender} has been defeated! {attacker} wins!".format(defender=self.player_one.name, attacker=self.player_two.name))
@@ -125,23 +129,27 @@ class Fight:
             else:
                 damage = self.player_two.attack_power - self.player_one.defense
                 self.player_one.health -= damage
+                if damage < 0:
+                    damage = 0
                 print("{attacker} attacks {defender} for {damage} damage! {defender} has {health} health remaining.".format(attacker=self.player_two.name, defender=self.player_one.name, damage=damage, health=self.player_one.health))
                 if self.player_one.health <= 0:
                     print("{defender} has been defeated! {attacker} wins!".format(defender=self.player_one.name, attacker=self.player_two.name))
                     break
                 damage = self.player_one.attack_power - self.player_two.defense
                 self.player_two.health -= damage
+                if damage < 0:
+                    damage = 0
                 print("{attacker} attacks {defender} for {damage} damage! {defender} has {health} health remaining.".format(attacker=self.player_one.name, defender=self.player_two.name, damage=damage, health=self.player_two.health))
                 if self.player_two.health <= 0:
                     print("{defender} has been defeated! {attacker} wins!".format(defender=self.player_two.name, attacker=self.player_one.name))
                     break
             round += 1
         return
-    
-# Fight Night
-print("Welcome to Fight Night! Get ready to rumble!")
+ 
 # Determine who goes first with a random number generator.
 first_move = random.randint(1,2)
+# Fight Night
+print("Welcome to Fight Night! Get ready to rumble!")
 
 # Create a player object and run through the stat allocation process.
 player_one = Player("Player One")
